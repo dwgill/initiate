@@ -1,0 +1,22 @@
+$bulma: '../../../bulma.module.scss';
+
+.hero {
+    composes: hero from $bulma;
+    composes: is-dark from $bulma;
+}
+
+.heroBody {
+    composes: hero-body from $bulma;
+}
+
+.container {
+    composes: container from $bulma;
+}
+
+.title {
+    composes: title from $bulma;
+}
+
+.subtitle {
+    composes: subtitle from $bulma;
+}

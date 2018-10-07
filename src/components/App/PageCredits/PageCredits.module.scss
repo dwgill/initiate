@@ -1,0 +1,18 @@
+$bulma: '../../../bulma.module.scss';
+
+.footer {
+    composes: footer from $bulma;
+}
+
+.credits {
+    composes: container from $bulma;
+
+}
+
+.credit {
+    
+}
+
+.anchor {
+
+}

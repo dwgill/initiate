@@ -1,0 +1,7 @@
+.pageBody {
+    composes: section from '../../bulma.module.scss';
+    flex-grow: 1;
+
+    display: flex;
+    flex-flow: column nowrap;
+}
