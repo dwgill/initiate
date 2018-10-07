@@ -1,1 +1,1 @@
-export { default } from './PageCredits';
+export { default } from "./PageCredits";
