@@ -4,12 +4,18 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.7.1",
+    "droll": "^0.2.1",
     "memoize-one": "^4.0.2",
+    "node-sass": "^4.10.0",
+    "prop-types": "^15.6.2",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-input-autosize": "^2.2.1",
     "react-redux": "^5.0.7",
-    "react-scripts": "2.0.4",
+    "react-scripts": "^2.1.1",
+    "reduce-reducers": "^0.4.3",
     "redux": "^4.0.0",
+    "redux-thunk": "^2.3.0",
     "uuid": "^3.3.2"
   },
   "scripts": {

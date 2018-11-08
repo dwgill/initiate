@@ -1,0 +1,1 @@
+export const UPDATE_COMBATANT = "UPDATE_COMBATANT";

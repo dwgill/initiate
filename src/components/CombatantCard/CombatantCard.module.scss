@@ -1,0 +1,16 @@
+$bulma: "../../bulma.module.scss";
+
+.card {
+  composes: message from $bulma;
+  display: flex;
+  flex-flow: column;
+  align-items: stretch;
+}
+
+.cardInterior {
+  composes: message-body from $bulma;
+}
+
+.active {
+  composes: is-danger from $bulma;
+}

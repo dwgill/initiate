@@ -16,6 +16,16 @@ class PageCredits extends PureComponent {
             <A link="https://bulma.io/">Bulma CSS framework</A> by Jeremy
             Thomas.
           </li>
+          <li className={styles.credit}>
+            <A link="https://github.com/thebinarypenguin/droll">droll</A>{" "}
+            library by Ethan Zimmerman.
+          </li>
+          <li className={styles.credit}>
+            <A link="https://github.com/JedWatson/react-input-autosize">
+              react-input-autosize
+            </A>{" "}
+            library by Jed Watson.
+          </li>
         </ul>
       </footer>
     );

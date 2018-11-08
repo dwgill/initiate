@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
-import InitiativeListing from "../InitiativeListing";
+import InitiativeTracker from "../InitiativeTracker";
 import PageCredits from "./PageCredits";
-import PageHeader from './PageHeader';
+import PageHeader from "./PageHeader";
 import styles from "./App.module.scss";
 
 class App extends PureComponent {
@@ -9,8 +9,8 @@ class App extends PureComponent {
     return (
       <>
         <PageHeader />
-        <section className={styles.pageBody}>
-          <InitiativeListing />
+        <section className={styles.mainSection}>
+          <InitiativeTracker />
         </section>
         <PageCredits />
       </>

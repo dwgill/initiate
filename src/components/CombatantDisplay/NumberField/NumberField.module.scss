@@ -1,0 +1,30 @@
+$bulma: "../../../bulma.module.scss";
+
+.field {
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  composes: input from $bulma;
+  width: auto !important; // Override width from bulma input class
+  &:not(:last-of-type) {
+    margin-right: 1rem;
+  }
+  padding-left: 0.5rem;
+}
+
+.fieldText {
+  //
+}
+
+.label {
+  // composes: fieldText;
+}
+
+.fieldInput {
+  // composes: fieldText;
+  border-color: transparent;
+  composes: is-paddingless from $bulma;
+  composes: is-marginles from $bulma;
+  composes: is-size-6 from $bulma;
+  margin-left: 0.1em;
+}

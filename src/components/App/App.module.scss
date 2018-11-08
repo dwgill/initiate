@@ -1,11 +1,8 @@
 $bulma: "../../bulma.module.scss";
 
-.pageBody {
+.mainSection {
   flex-grow: 1;
-
   composes: section from $bulma;
   composes: container from $bulma;
-
-  display: flex;
-  flex-flow: column nowrap;
 }
+

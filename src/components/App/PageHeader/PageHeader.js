@@ -7,7 +7,7 @@ class PageHeader extends PureComponent {
       <section className={styles.hero}>
         <div className={styles.heroBody}>
           <div className={styles.container}>
-            <h1 className={styles.title}>Initiator</h1>
+            <h1 className={styles.title}>Initiate</h1>
             <h2 className={styles.subtitle}>
               A(nother) Dungeons & Dragons Initative Tracker
             </h2>
