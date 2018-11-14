@@ -1,8 +1,13 @@
 $bulma: "../../bulma.module.scss";
+@import "../../bulma/bulma-util";
 
 .mainSection {
   flex-grow: 1;
   composes: section from $bulma;
-  composes: container from $bulma;
+  
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  justify-content: flex-start
 }
 

@@ -1,3 +1,6 @@
-.container {
-  
+$bulma: "../../bulma.module.scss";
+@import "../../bulma/bulma-util";
+
+.initiativeList {
+  max-width: 100%;
 }

@@ -2,6 +2,9 @@ import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import styles from "./CombatantDisplay.module.scss";
 import NumberField from "./NumberField";
+import StandardLayout from "./Layouts/StandardLayout";
+import AutosizeInput from "react-input-autosize";
+import cls from "classnames";
 
 class CombatantDisplay extends PureComponent {
   static propTypes = {
@@ -18,43 +21,51 @@ class CombatantDisplay extends PureComponent {
     onChangeHealthPoints: PropTypes.func.isRequired
   };
 
+  handleRenderName = ({ className }) => (
+    <AutosizeInput
+      className={cls(styles.nameContainer, className)}
+      inputClassName={styles.name}
+      value={this.props.name}
+      onChange={this.handleChangeName}
+      placeholder="Unnamed"
+    />
+  );
+
+  handleRenderInitiative = ({ className }) => (
+    <NumberField
+      className={className}
+      label="Initiative:"
+      value={this.props.initiative}
+      onChange={this.props.onChangeInitiative}
+    />
+  );
+
+  handleRenderHealth = ({ className }) => (
+    <NumberField
+      className={className}
+      label="Health:"
+      value={this.props.healthPoints}
+      onChange={this.props.onChangeHealthPoints}
+    />
+  );
+
+  handleRenderArmorClass = ({ className }) => (
+    <NumberField
+      className={className}
+      label="Armor Class:"
+      value={this.props.armorClass}
+      onChange={this.props.onChangeArmorClass}
+    />
+  );
+
   render() {
-    const {
-      name,
-      initiative,
-      onChangeInitiative,
-      healthPoints,
-      onChangeHealthPoints,
-      armorClass,
-      onChangeArmorClass
-    } = this.props;
     return (
-      <>
-        <input
-          type="text"
-          className={styles.name}
-          value={name}
-          onChange={this.handleChangeName}
-          placeholder="Unnamed"
-        />
-        <div className={styles.body}>
-          <NumberField
-            label="Initiative:"
-            value={initiative}
-            onChange={onChangeInitiative}
-          />
-          <NumberField
-            label="Health:"
-            value={healthPoints}
-            onChange={onChangeHealthPoints}
-          />
-          <NumberField
-            label="Armor Class:"
-            value={armorClass}
-            onChange={onChangeArmorClass}
-          />
-        </div>
-      </>
+      <StandardLayout
+        Name={this.handleRenderName}
+        Initiative={this.handleRenderInitiative}
+        Health={this.handleRenderHealth}
+        ArmorClass={this.handleRenderArmorClass}
+      />
     );
   }
 

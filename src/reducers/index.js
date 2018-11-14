@@ -1,6 +1,13 @@
 import reduceReducers from 'reduce-reducers';
-import combatants from './combatants';
-import order from './order';
+import combatantsReducer from './combatants';
+import orderReducer from './order';
+import flow from 'lodash/fp/flow';
+import map from 'lodash/fp/map';
+import flatMap from 'lodash/fp/flatMap';
+
+const reducerDependencyGraph = flatMap(
+  reducer => reducer.dependencies.map(dep => [dep, reducer])
+)([combatantsReducer, orderReducer]);
 
 const initialState = {
   order: ['foo', 'bar'],
@@ -22,4 +29,4 @@ const initialState = {
   },
 }
 
-export default reduceReducers(combatants, order, initialState);
+export default reduceReducers(combatantsReducer, orderReducer, initialState);

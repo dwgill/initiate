@@ -7,7 +7,7 @@ class InitiativeTracker extends PureComponent {
   render() {
     const { combatants } = this.props;
     return (
-      <div className={styles.container}>
+      <div className={styles.initiativeList}>
         {combatants.map(combatantID => (
           <CombatantCard id={combatantID} key={combatantID} />
         ))}

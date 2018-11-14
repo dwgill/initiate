@@ -3,25 +3,27 @@ import map from "lodash/fp/map";
 import reverse from "lodash/fp/reverse";
 import flow from "lodash/fp/flow";
 import { UPDATE_COMBATANT } from "../actions/types";
-import getCombatants from '../selectors/getCombatants';
+import getCombatants from "../selectors/getCombatants";
 
 const getOrderForCombatants = flow(
   getCombatants,
-  sortBy(combatant => combatant.initiative || 0),
+  sortBy(combatant =>
+    isNaN(combatant.initiative) ? Number.MAX_SAFE_INTEGER : combatant.initiative
+  ),
   map("id"),
   reverse
 );
 
-export default (state, { type, payload }) => {
+const orderReducer = (state, { type, payload }) => {
   switch (type) {
     case UPDATE_COMBATANT: {
-      if (!payload.initiative) {
+      if (payload.initiative === undefined) {
         return state;
       }
 
       return {
         ...state,
-        order: getOrderForCombatants(state),
+        order: getOrderForCombatants(state)
       };
     }
     default: {
@@ -29,3 +31,7 @@ export default (state, { type, payload }) => {
     }
   }
 };
+
+orderReducer.dependencies = [...getCombatants.reducers];
+
+export default orderReducer;

@@ -2,7 +2,7 @@ import { UPDATE_COMBATANT } from "../actions/types";
 import isEqual from "lodash/fp/isEqual";
 import pick from "lodash/fp/pick";
 
-export default (state, { type, payload }) => {
+const combatantsReducer = (state, { type, payload }) => {
   switch (type) {
     case UPDATE_COMBATANT: {
       const { id: combatantId } = payload;
@@ -36,3 +36,7 @@ export default (state, { type, payload }) => {
     }
   }
 };
+
+combatantsReducer.dependencies = [];
+
+export default combatantsReducer;

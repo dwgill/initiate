@@ -3,12 +3,14 @@ import styles from "./NumberField.module.scss";
 import PropTypes from "prop-types";
 import computeDynamicNumber from "../../../logic/computeDynamicNumber";
 import AutosizeInput from "react-input-autosize";
+import cls from 'classnames';
 
 class NumberField extends PureComponent {
   static propTypes = {
     value: PropTypes.number,
     label: PropTypes.string.isRequired,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
+    className: PropTypes.string
   };
 
   constructor(props) {
@@ -45,7 +47,7 @@ class NumberField extends PureComponent {
     }
   };
 
-  handleBlur = (event) => {
+  handleBlur = event => {
     this.setState({ hasFocus: false });
     const { onChange, value: propsValue } = this.props;
     const { value } = this.state;
@@ -82,10 +84,10 @@ class NumberField extends PureComponent {
 
   render() {
     const { value, hasFocus } = this.state;
-    const { label } = this.props;
+    const { label, className } = this.props;
     const placeholder = hasFocus ? "" : "N/A";
     return (
-      <span className={styles.field} onClick={this.handleFocus}>
+      <span className={cls(styles.field, className)} onClick={this.handleFocus}>
         <label className={styles.label}>
           {label}
           <AutosizeInput

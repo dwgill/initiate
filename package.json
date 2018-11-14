@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "bulma": "^0.7.1",
+    "classnames": "^2.2.6",
     "droll": "^0.2.1",
     "memoize-one": "^4.0.2",
     "node-sass": "^4.10.0",

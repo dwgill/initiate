@@ -8,8 +8,13 @@ $bulma: "../../bulma.module.scss";
   background-color: transparent;
 }
 
+.nameContainer {
+}
+
 .body {
+  flex: 1;
   display: flex;
   flex-flow: row wrap;
   align-items: flex-start;
+  justify-content: flex-end;
 }
