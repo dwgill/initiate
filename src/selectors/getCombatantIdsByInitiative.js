@@ -4,4 +4,4 @@ const getCombatantIdsByInitiative = state => state.order;
 
 getCombatantIdsByInitiative.reducers = [OrderReducer];
 
-export default OrderReducer;
+export default getCombatantIdsByInitiative;

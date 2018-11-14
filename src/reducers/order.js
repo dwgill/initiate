@@ -17,7 +17,7 @@ const getOrderForCombatants = flow(
 const orderReducer = (state, { type, payload }) => {
   switch (type) {
     case UPDATE_COMBATANT: {
-      if (payload.initiative === undefined) {
+      if (!payload.hasOwnProperty("initiative")) {
         return state;
       }
 

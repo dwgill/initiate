@@ -11,12 +11,9 @@ const combatantsReducer = (state, { type, payload }) => {
       }
 
       const oldCombatant = state.combatants[combatantId];
-
       const newProperties = payload;
-
-      const touchedKeys = Object.keys(newProperties);
-      const oldProperties = pick(touchedKeys)(oldCombatant);
-
+      const newPropKeys = Object.keys(newProperties);
+      const oldProperties = pick(newPropKeys)(oldCombatant);
       const noDifference = isEqual(oldProperties)(newProperties);
 
       // prettier-ignore
