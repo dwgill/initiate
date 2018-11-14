@@ -3,12 +3,10 @@ $bulma: "../../bulma.module.scss";
 .name {
   composes: title from $bulma;
   composes: is-3 from $bulma;
+  composes: is-size-4-mobile from $bulma;
   composes: is-marginless from $bulma;
   border-color: transparent;
   background-color: transparent;
-}
-
-.nameContainer {
 }
 
 .body {

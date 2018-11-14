@@ -3,11 +3,11 @@ import styles from './StandardLayout.module.scss';
 
 const StandardLayout = ({ Name, Initiative, Health, ArmorClass }) => (
   <div className={styles.container}>
-    <Name className={styles.name} />
-    <div className={styles.rightRow}>
-      <Initiative className={styles.numberField} />
-      <Health className={styles.numberField} />
-      <ArmorClass className={styles.numberField} />
+    <Name className={styles.left} />
+    <div className={styles.right}>
+      <Initiative className={styles.rightElement} />
+      <Health className={styles.rightElement} />
+      <ArmorClass className={styles.rightElement} />
     </div>
   </div>
 );

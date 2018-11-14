@@ -23,7 +23,7 @@ class CombatantDisplay extends PureComponent {
 
   handleRenderName = ({ className }) => (
     <AutosizeInput
-      className={cls(styles.nameContainer, className)}
+      className={className}
       inputClassName={styles.name}
       value={this.props.name}
       onChange={this.handleChangeName}

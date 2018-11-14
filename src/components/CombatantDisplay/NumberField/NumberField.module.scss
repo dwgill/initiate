@@ -5,15 +5,8 @@ $bulma: "../../../bulma.module.scss";
   flex-flow: row wrap;
   align-items: center;
   composes: input from $bulma;
-  width: auto !important; // Override width from bulma input class
-  &:not(:last-of-type) {
-    margin-right: 1rem;
-  }
-  padding-left: 0.5rem;
-}
-
-.fieldText {
-  //
+  width: auto !important;
+  height: auto !important;
 }
 
 .label {
@@ -21,10 +14,7 @@ $bulma: "../../../bulma.module.scss";
 }
 
 .fieldInput {
-  // composes: fieldText;
   border-color: transparent;
-  composes: is-paddingless from $bulma;
-  composes: is-marginles from $bulma;
   composes: is-size-6 from $bulma;
   margin-left: 0.1em;
 }
