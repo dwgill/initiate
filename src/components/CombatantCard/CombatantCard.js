@@ -1,29 +1,31 @@
-import React, { PureComponent } from "react";
+import React, { PureComponent, memo } from "react";
 import styles from "./CombatantCard.module.scss";
 import enhance from "./CombatantCardEnhancer";
 import PropTypes from "prop-types";
 import { Combatant, CombatantId } from "../../reducers/propTypes.js";
 import CombatantDisplay from "../CombatantDisplay";
-import { ReactComponent as Times } from '@fortawesome/fontawesome-free/svgs/solid/times.svg';
-import { ReactComponent as Clone } from '@fortawesome/fontawesome-free/svgs/solid/clone.svg';
+import { ReactComponent as Times } from "@fortawesome/fontawesome-free/svgs/solid/times.svg";
+import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
 
-const DeleteButton = ({ onPress }) => (
-  <button className={styles.deleteBtn} onPress={onPress}>
+const DeleteButton = memo(({ onClick }) => (
+  <button className={styles.deleteBtn} onClick={onClick}>
     <Times className={styles.icon} />
   </button>
-);
+));
 
-const CopyButton = ({ onPress }) => (
-  <button className={styles.copyBtn} onPress={onPress}>
+const CopyButton = memo(({ onClick }) => (
+  <button className={styles.copyBtn} onClick={onClick}>
     <Clone className={styles.icon} />
   </button>
-);
+));
 
 class CombatantCard extends PureComponent {
   static propTypes = {
     id: CombatantId().isRequired,
     combatant: Combatant().isRequired,
-    onUpdateCombatant: PropTypes.func.isRequired
+    onCopyCombatant: PropTypes.func.isRequired,
+    onUpdateCombatant: PropTypes.func.isRequired,
+    onDeleteCombatant: PropTypes.func.isRequired
   };
 
   doUpdateCombatant(property, value) {
@@ -50,7 +52,9 @@ class CombatantCard extends PureComponent {
 
   render() {
     const {
-      combatant: { name, initiative, armorClass, healthPoints }
+      combatant: { name, initiative, armorClass, healthPoints },
+      onCopyCombatant,
+      onDeleteCombatant
     } = this.props;
     return (
       <div className={styles.card}>
@@ -65,8 +69,8 @@ class CombatantCard extends PureComponent {
             armorClass={armorClass}
             onChangeArmorClass={this.handleChangeArmorClass}
           />
-          <DeleteButton />
-          <CopyButton />
+          <DeleteButton onClick={onDeleteCombatant} />
+          <CopyButton onClick={onCopyCombatant} />
         </div>
       </div>
     );

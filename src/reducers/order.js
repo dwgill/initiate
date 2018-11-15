@@ -3,7 +3,7 @@ import isEqual from "lodash/fp/isEqual";
 import map from "lodash/fp/map";
 import reverse from "lodash/fp/reverse";
 import sortBy from "lodash/fp/sortBy";
-import { UPDATE_COMBATANT } from "../actions/types";
+import { UPDATE_COMBATANT, NEW_COMBATANT, DELETE_COMBATANT } from "../actions/types";
 import getCombatants from "../selectors/getCombatants";
 
 const calcCombatantInitiative = combatant =>
@@ -31,6 +31,20 @@ const orderReducer = (state, { type, payload }) => {
         ...state,
         order: newOrder,
       };
+    }
+    case NEW_COMBATANT: {
+      return {
+        ...state,
+        order: calcOrderOfCombatants(state),
+      };
+    }
+    case DELETE_COMBATANT: {
+      const deletedId = payload;
+      const noDifference = !state.order.includes(deletedId);
+      return noDifference ? state : {
+        ...state,
+        order: state.order.filter(otherId => otherId !== deletedId)
+      }
     }
     default: {
       return state;
