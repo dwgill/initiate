@@ -1,5 +1,5 @@
 import { NEW_COMBATANT } from "./types";
-import newUniqueId from "../logic/newUniqueId";
+const newUniqueId  = require("../logic/newUniqueId").default;
 
 const newCombatant = newCombatantId => ({
   type: NEW_COMBATANT,
