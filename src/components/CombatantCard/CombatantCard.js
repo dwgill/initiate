@@ -4,6 +4,20 @@ import enhance from "./CombatantCardEnhancer";
 import PropTypes from "prop-types";
 import { Combatant, CombatantId } from "../../reducers/propTypes.js";
 import CombatantDisplay from "../CombatantDisplay";
+import { ReactComponent as Times } from '@fortawesome/fontawesome-free/svgs/solid/times.svg';
+import { ReactComponent as Clone } from '@fortawesome/fontawesome-free/svgs/solid/clone.svg';
+
+const DeleteButton = ({ onPress }) => (
+  <button className={styles.deleteBtn} onPress={onPress}>
+    <Times className={styles.icon} />
+  </button>
+);
+
+const CopyButton = ({ onPress }) => (
+  <button className={styles.copyBtn} onPress={onPress}>
+    <Clone className={styles.icon} />
+  </button>
+);
 
 class CombatantCard extends PureComponent {
   static propTypes = {
@@ -51,6 +65,8 @@ class CombatantCard extends PureComponent {
             armorClass={armorClass}
             onChangeArmorClass={this.handleChangeArmorClass}
           />
+          <DeleteButton />
+          <CopyButton />
         </div>
       </div>
     );

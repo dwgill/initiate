@@ -4,7 +4,6 @@ import styles from "./CombatantDisplay.module.scss";
 import NumberField from "./NumberField";
 import StandardLayout from "./Layouts/StandardLayout";
 import AutosizeInput from "react-input-autosize";
-import cls from "classnames";
 
 class CombatantDisplay extends PureComponent {
   static propTypes = {

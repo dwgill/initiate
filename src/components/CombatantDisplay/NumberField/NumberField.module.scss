@@ -9,6 +9,11 @@ $bulma: "../../../bulma.module.scss";
   height: auto !important;
 }
 
+.flash {
+  // border-color: red;
+  composes: is-danger from $bulma;
+}
+
 .label {
   // composes: fieldText;
 }

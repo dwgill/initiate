@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.5.0",
     "bulma": "^0.7.1",
     "classnames": "^2.2.6",
     "droll": "^0.2.1",

@@ -1,9 +1,10 @@
 $bulma: "../../bulma.module.scss";
-// @import "../../bulma/bulma-util";
+@import "../../bulma/bulma-util";
 
 
 .card {
   composes: message from $bulma;
+  position: relative;
   // display: flex;
   // flex-flow: column;
   // align-items: stretch;
@@ -15,4 +16,42 @@ $bulma: "../../bulma.module.scss";
 
 .active {
   composes: is-danger from $bulma;
+}
+
+.iconBtn {
+  position: absolute;
+  border-width: 0;
+  border-color: transparent;
+  background-color: transparent;
+  padding: .1rem;
+  &:active {
+    padding-right: .05rem;
+    padding-left: .15rem;
+  }
+}
+
+.deleteBtn {
+  composes: iconBtn;
+  top: 0.2rem;
+  right: 0.2rem;
+}
+
+.copyBtn {
+  composes: iconBtn;
+  top: 2rem;
+  right: 0.2rem;
+}
+
+.icon {
+  height: 1rem;
+  width: 1rem;
+  fill: $grey-light;
+  
+  .iconBtn:hover & {
+    fill: $grey;
+  }
+  
+  .iconBtn:active & {
+    fill: $grey-dark;
+  }
 }

@@ -3,7 +3,8 @@ import styles from "./NumberField.module.scss";
 import PropTypes from "prop-types";
 import computeDynamicNumber from "../../../logic/computeDynamicNumber";
 import AutosizeInput from "react-input-autosize";
-import cls from 'classnames';
+import cls from "classnames";
+import delay from 'lodash/fp/delay';
 
 class NumberField extends PureComponent {
   static propTypes = {
@@ -18,7 +19,8 @@ class NumberField extends PureComponent {
 
     this.state = {
       hasFocus: false,
-      value: ""
+      value: "",
+      isFlashing: false
     };
 
     this.inputRef = React.createRef();
@@ -33,6 +35,12 @@ class NumberField extends PureComponent {
     }
 
     return null;
+  }
+
+  flash() {
+    this.setState({ isFlashing: true }, () => {
+      delay(300, () => this.setState({ isFlashing: false }));
+    })
   }
 
   handleFocus = (event, shouldSelect = true) => {
@@ -61,8 +69,11 @@ class NumberField extends PureComponent {
     }
 
     try {
-      const newValue = computeDynamicNumber(propsValue, value);
+      const [newValue, wasDynamic] = computeDynamicNumber(propsValue, value);
       onChange(newValue);
+      if (wasDynamic) {
+        this.flash();
+      }
     } catch (e) {}
   };
 
@@ -83,11 +94,14 @@ class NumberField extends PureComponent {
   };
 
   render() {
-    const { value, hasFocus } = this.state;
+    const { value, hasFocus, isFlashing } = this.state;
     const { label, className } = this.props;
     const placeholder = hasFocus ? "" : "N/A";
     return (
-      <span className={cls(styles.field, className)} onClick={this.handleFocus}>
+      <span
+        className={cls(styles.field, className, { [styles.flash]: isFlashing })}
+        onClick={this.handleFocus}
+      >
         <label className={styles.label}>
           {label}
           <AutosizeInput

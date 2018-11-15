@@ -20,7 +20,7 @@ describe("computeDynamicNumber()", () => {
 
     for (const { prev, dyn, result } of constants) {
       it(`evaluates (${prev}, ${dyn}) to (${result})`, () => {
-        expect(computeDynamicNumber(prev, dyn)).toEqual(result);
+        expect(computeDynamicNumber(prev, dyn)).toEqual([result, false]);
       });
     }
   });
@@ -57,7 +57,7 @@ describe("computeDynamicNumber()", () => {
 
     for (const { prev, dyn, result } of constants) {
       it(`evaluates (${prev}, ${dyn}) to (${result})`, () => {
-        expect(computeDynamicNumber(prev, dyn)).toEqual(result);
+        expect(computeDynamicNumber(prev, dyn)).toEqual([result, true]);
       });
     }
   });
@@ -76,7 +76,8 @@ describe("computeDynamicNumber()", () => {
 
     for (const { prev, dyn, resultHigh, resultLow } of diceRolls) {
       it(`evaluates (${prev}, ${dyn}) in range [${resultLow}, ${resultHigh}]`, () => {
-        const result = computeDynamicNumber(prev, dyn);
+        const [result, dynamic] = computeDynamicNumber(prev, dyn);
+        expect(dynamic).toBeTruthy();
         expect(result).toBeLessThanOrEqual(resultHigh);
         expect(result).toBeGreaterThanOrEqual(resultLow);
       });
@@ -98,7 +99,8 @@ describe("computeDynamicNumber()", () => {
 
     for (const { prev, dyn, resultHigh, resultLow } of diceRolls) {
       it(`evaluates (${prev}, ${dyn}) in range [${resultLow}, ${resultHigh}]`, () => {
-        const result = computeDynamicNumber(prev, dyn);
+        const [result, dynamic] = computeDynamicNumber(prev, dyn);
+        expect(dynamic).toBeTruthy();
         expect(result).toBeLessThanOrEqual(resultHigh);
         expect(result).toBeGreaterThanOrEqual(resultLow);
       });
