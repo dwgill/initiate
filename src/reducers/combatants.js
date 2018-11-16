@@ -1,7 +1,11 @@
-import { UPDATE_COMBATANT, NEW_COMBATANT, DELETE_COMBATANT } from "../actions/types";
+import {
+  UPDATE_COMBATANT,
+  NEW_COMBATANT,
+  DELETE_COMBATANT
+} from "../actions/types";
 import isEqual from "lodash/fp/isEqual";
 import pick from "lodash/fp/pick";
-import omit from 'lodash/fp/omit';
+import omit from "lodash/fp/omit";
 
 const combatantsReducer = (state, { type, payload }) => {
   switch (type) {
@@ -43,10 +47,10 @@ const combatantsReducer = (state, { type, payload }) => {
             healthPoints: null
           }
         }
-      }
+      };
     }
     case DELETE_COMBATANT: {
-      const combatantId = payload;
+      const { id: combatantId } = payload;
       const noDifference = !state.combatants.hasOwnProperty(combatantId);
       return noDifference ? state : omit(`combatants.${combatantId}`)(state);
     }

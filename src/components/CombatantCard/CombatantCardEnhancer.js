@@ -1,11 +1,13 @@
 import { connect } from "react-redux";
 import getCombatantById from "../../selectors/getCombatantById";
+import getActiveId from "../../selectors/getActiveId";
 import updateCombatant from "../../actions/updateCombatant";
 import copyCombatant from "../../actions/copyCombatant";
 import deleteCombatant from "../../actions/deleteCombatant";
 
 const mapStateToProps = (state, ownProps) => ({
-  combatant: getCombatantById(state)(ownProps.id)
+  combatant: getCombatantById(state)(ownProps.id),
+  active: getActiveId(state) === ownProps.id,
 });
 
 const mapDispatchToProps = (dispatch, ownProps) => ({

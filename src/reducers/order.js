@@ -39,7 +39,7 @@ const orderReducer = (state, { type, payload }) => {
       };
     }
     case DELETE_COMBATANT: {
-      const deletedId = payload;
+      const { id: deletedId} = payload;
       const noDifference = !state.order.includes(deletedId);
       return noDifference ? state : {
         ...state,

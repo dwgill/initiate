@@ -3,6 +3,7 @@ import reduceReducers from "reduce-reducers";
 import toposort from "toposort";
 import combatantsReducer from "./combatants";
 import orderReducer from "./order";
+import activeInitiativeReducer from "./activeInitiative";
 
 const prioritizeReducers = (...reducers) => {
   const nodes = reducers;
@@ -14,25 +15,15 @@ const prioritizeReducers = (...reducers) => {
 };
 
 const initialState = {
-  order: ["foo", "bar"],
-  combatants: {
-    foo: {
-      id: "foo",
-      name: "Brokthar",
-      initiative: 15,
-      armorClass: 16,
-      healthPoints: 25
-    },
-    bar: {
-      id: "bar",
-      name: "Archideld",
-      initiative: 6,
-      armorClass: 12,
-      healthPoints: 10
-    }
-  }
+  order: [],
+  combatants: {},
+  activeInitiative: null
 };
 
-const reducers = prioritizeReducers(combatantsReducer, orderReducer);
+const reducers = prioritizeReducers(
+  combatantsReducer,
+  orderReducer,
+  activeInitiativeReducer
+);
 
 export default reduceReducers(...reducers, initialState);

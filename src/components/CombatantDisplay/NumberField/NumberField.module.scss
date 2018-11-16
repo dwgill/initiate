@@ -11,7 +11,8 @@ $bulma: "../../../bulma.module.scss";
 
 .flash {
   // border-color: red;
-  composes: is-danger from $bulma;
+  composes: is-primary from $bulma;
+  border-width: 0.15rem;
 }
 
 .label {

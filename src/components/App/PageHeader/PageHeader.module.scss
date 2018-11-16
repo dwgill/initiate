@@ -2,7 +2,6 @@ $bulma: '../../../bulma.module.scss';
 
 .hero {
     composes: hero from $bulma;
-    composes: is-dark from $bulma;
 }
 
 .heroBody {
@@ -15,8 +14,10 @@ $bulma: '../../../bulma.module.scss';
 
 .title {
     composes: title from $bulma;
+    composes: is-1 from $bulma;
 }
 
 .subtitle {
     composes: subtitle from $bulma;
+    composes: is-5 from $bulma;
 }

@@ -7,6 +7,7 @@ $bulma: "../../bulma.module.scss";
   composes: is-marginless from $bulma;
   border-color: transparent;
   background-color: transparent;
+  line-height: 1.3em;
 }
 
 .body {

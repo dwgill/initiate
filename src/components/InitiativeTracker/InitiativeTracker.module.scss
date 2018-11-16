@@ -3,4 +3,43 @@ $bulma: "../../bulma.module.scss";
 
 .initiativeList {
   max-width: 100%;
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: stretch;
+}
+
+.btnRow {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.iconBtn {
+  align-self: flex-end;
+  border-width: 0;
+  border-color: transparent;
+  background-color: transparent;
+  margin: 0.5rem;
+  height: 3rem;
+  width: 3rem;
+  padding: .15rem;
+  &:active {
+    padding-right: .025rem;
+    padding-left: .175rem;
+  }
+}
+
+.icon {
+  width: 100%;
+  height: 100%;
+
+  fill: $dark;
+  .iconBtn:hover &, .iconBtn:focus & {
+    fill: $grey;
+  }
+
+  .iconBtn:active & {
+    fill: $link;
+  }
 }

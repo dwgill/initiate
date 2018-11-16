@@ -7,16 +7,16 @@ import AutosizeInput from "react-input-autosize";
 
 class CombatantDisplay extends PureComponent {
   static propTypes = {
-    name: PropTypes.string.isRequired,
+    name: PropTypes.string,
     onChangeName: PropTypes.func.isRequired,
 
-    initiative: PropTypes.number.isRequired,
+    initiative: PropTypes.number,
     onChangeInitiative: PropTypes.func.isRequired,
 
-    armorClass: PropTypes.number.isRequired,
+    armorClass: PropTypes.number,
     onChangeArmorClass: PropTypes.func.isRequired,
 
-    healthPoints: PropTypes.number.isRequired,
+    healthPoints: PropTypes.number,
     onChangeHealthPoints: PropTypes.func.isRequired
   };
 

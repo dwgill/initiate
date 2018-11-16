@@ -6,15 +6,28 @@ import { Combatant, CombatantId } from "../../reducers/propTypes.js";
 import CombatantDisplay from "../CombatantDisplay";
 import { ReactComponent as Times } from "@fortawesome/fontawesome-free/svgs/solid/times.svg";
 import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
+import cls from "classnames";
 
 const DeleteButton = memo(({ onClick }) => (
-  <button className={styles.deleteBtn} onClick={onClick}>
+  <button
+    className={styles.deleteBtn}
+    onClick={event => {
+      onClick();
+      event.target.blur();
+    }}
+  >
     <Times className={styles.icon} />
   </button>
 ));
 
 const CopyButton = memo(({ onClick }) => (
-  <button className={styles.copyBtn} onClick={onClick}>
+  <button
+    className={styles.copyBtn}
+    onClick={event => {
+      onClick();
+      event.target.blur();
+    }}
+  >
     <Clone className={styles.icon} />
   </button>
 ));
@@ -54,10 +67,11 @@ class CombatantCard extends PureComponent {
     const {
       combatant: { name, initiative, armorClass, healthPoints },
       onCopyCombatant,
-      onDeleteCombatant
+      onDeleteCombatant,
+      active
     } = this.props;
     return (
-      <div className={styles.card}>
+      <div className={cls(styles.card, { [styles.active]: active })}>
         <div className={styles.cardInterior}>
           <CombatantDisplay
             name={name}

@@ -5,9 +5,6 @@ $bulma: "../../bulma.module.scss";
 .card {
   composes: message from $bulma;
   position: relative;
-  // display: flex;
-  // flex-flow: column;
-  // align-items: stretch;
 }
 
 .cardInterior {
@@ -15,7 +12,7 @@ $bulma: "../../bulma.module.scss";
 }
 
 .active {
-  composes: is-danger from $bulma;
+  composes: is-primary from $bulma;
 }
 
 .iconBtn {
@@ -47,8 +44,9 @@ $bulma: "../../bulma.module.scss";
   width: 1rem;
   fill: $grey-light;
   
-  .iconBtn:hover & {
-    fill: $grey;
+  
+  .iconBtn:hover &, .iconBtn:focus & {
+    fill: $danger;
   }
   
   .iconBtn:active & {
