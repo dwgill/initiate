@@ -6,7 +6,7 @@ import progressInitiative from "../../actions/progressInitiative";
 
 const mapStateToProps = state => ({
   combatants: getCombatantIdsByInitiative(state),
-  canProgress: getNumCombatants(state) > 0
+  canProgress: getNumCombatants(state) > 1
 });
 
 const mapDispatchToProps = {
