@@ -1,7 +1,7 @@
-import CombatantsReducer from "../reducers/combatants";
+import combatantsReducer from "../reducers/combatants";
 
 const getCombatantById = state => combatantId => state.combatants[combatantId];
 
-getCombatantById.reducers = [CombatantsReducer];
+getCombatantById.reducers = [combatantsReducer];
 
 export default getCombatantById;

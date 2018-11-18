@@ -1,7 +1,7 @@
-import OrderReducer from "../reducers/order";
+import orderReducer from "../reducers/order";
 
-const getCombatantIdsByInitiative = state => state.order;
+const getCombatantIdsByInitiative = state => state.order.ids;
 
-getCombatantIdsByInitiative.reducers = [OrderReducer];
+getCombatantIdsByInitiative.reducers = [orderReducer];
 
 export default getCombatantIdsByInitiative;

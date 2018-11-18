@@ -50,7 +50,7 @@ const combatantsReducer = (state, { type, payload }) => {
       };
     }
     case DELETE_COMBATANT: {
-      const { id: combatantId } = payload;
+      const combatantId = payload;
       const noDifference = !state.combatants.hasOwnProperty(combatantId);
       return noDifference ? state : omit(`combatants.${combatantId}`)(state);
     }

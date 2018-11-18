@@ -1,20 +1,18 @@
-import existy from "../logic/existy";
-import ActiveInitiativeReducer from "../reducers/activeInitiative";
-import getCombatantIdsByInitiative from "./getCombatantIdsByInitiative";
+import orderReducer from "../reducers/order";
+import existy from '../logic/existy';
 
 const getActiveId = state => {
-  const { activeInitiative } = state;
-  const initiativeOrder = getCombatantIdsByInitiative(state);
-  if (!existy(activeInitiative)) {
+  const activePos = state.order.active;
+  if (!existy(activePos)) {
     return null;
   }
-  if (initiativeOrder.length < 1 || initiativeOrder.length < activeInitiative) {
+  const activeId = state.order.ids[activePos];
+  if (!existy(activeId)) {
     return null;
   }
-
-  return initiativeOrder[activeInitiative];
+  return activeId;
 };
 
-getActiveId.reducers = [ActiveInitiativeReducer];
+getActiveId.reducers = [orderReducer];
 
 export default getActiveId;

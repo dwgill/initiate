@@ -1,8 +1,8 @@
 import size from 'lodash/fp/size';
-import CombatantsReducer from "../reducers/combatants";
+import combatantsReducer from "../reducers/combatants";
 
 const getNumCombatants = state => size(state.combatants);
 
-getNumCombatants.reducers = [CombatantsReducer];
+getNumCombatants.reducers = [combatantsReducer];
 
 export default getNumCombatants;
