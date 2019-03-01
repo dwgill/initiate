@@ -1,11 +1,7 @@
-import {
-  UPDATE_COMBATANT,
-  NEW_COMBATANT,
-  DELETE_COMBATANT
-} from "../actions/types";
 import isEqual from "lodash/fp/isEqual";
-import pick from "lodash/fp/pick";
 import omit from "lodash/fp/omit";
+import pick from "lodash/fp/pick";
+import { DELETE_COMBATANT, NEW_COMBATANT, UPDATE_COMBATANT } from "../actions/types";
 
 const combatantsReducer = (state, { type, payload }) => {
   switch (type) {
@@ -59,7 +55,5 @@ const combatantsReducer = (state, { type, payload }) => {
     }
   }
 };
-
-combatantsReducer.dependencies = [];
 
 export default combatantsReducer;

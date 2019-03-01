@@ -1,30 +1,11 @@
-import flow from "lodash/fp/flow";
 import isEqual from "lodash/fp/isEqual";
-import map from "lodash/fp/map";
-import reverse from "lodash/fp/reverse";
-import sortBy from "lodash/fp/sortBy";
-import {
-  DELETE_COMBATANT,
-  NEW_COMBATANT,
-  PROGRESS_INITIATIVE,
-  UPDATE_COMBATANT
-} from "../actions/types";
+import { DELETE_COMBATANT, NEW_COMBATANT, PROGRESS_INITIATIVE, UPDATE_COMBATANT } from "../actions/types";
 import existy from "../logic/existy";
 import reassessActivePosition from "../logic/reassessActivePosition";
-import getCombatants from "../selectors/getCombatants";
 import getConfigSorted from "../selectors/getConfigSorted";
+import getInitiativeOrderSorted from "../selectors/getInitiativeOrderSorted";
 
-const calcCombatantInitiative = combatant =>
-  isNaN(combatant.initiative) ? Number.MAX_SAFE_INTEGER : combatant.initiative;
-
-const calcOrderOfCombatants = flow(
-  getCombatants,
-  sortBy(calcCombatantInitiative),
-  map("id"),
-  reverse
-);
-
-const newOrder = state => (order, replace = false) => ({
+const defineNewState = state => (order, replace = false) => ({
   ...state,
   order: {
     ...(replace ? {} : state.order),
@@ -33,6 +14,7 @@ const newOrder = state => (order, replace = false) => ({
 });
 
 const orderReducer = (state, { type, payload }) => {
+  const withNewOrder = defineNewState(state);
   switch (type) {
     case UPDATE_COMBATANT: {
       const shouldSort = getConfigSorted(state);
@@ -41,23 +23,23 @@ const orderReducer = (state, { type, payload }) => {
       }
 
       const oldOrdering = state.order.ids;
-      const newOrdering = calcOrderOfCombatants(state);
+      const newOrdering = getInitiativeOrderSorted(state);
       const noDifference = isEqual(oldOrdering, newOrdering);
       if (noDifference) {
         return state;
       }
 
       const updatedId = payload.id;
-      const prevActiveId = oldOrdering[oldActivePos];
       const oldActivePos = state.order.active;
+      const prevActiveId = oldOrdering[oldActivePos];
       const newActivePos = reassessActivePosition({
         oldOrdering,
         newOrdering,
         oldActivePos,
-        resetActive: updatedId === prevActiveId,
+        resetActive: updatedId === prevActiveId
       });
 
-      return newOrder(state)({
+      return withNewOrder({
         ids: newOrdering,
         active: newActivePos
       });
@@ -74,7 +56,7 @@ const orderReducer = (state, { type, payload }) => {
         oldActivePos
       });
 
-      return newOrder(state)({ ids: newOrdering, active: newActivePos });
+      return withNewOrder({ ids: newOrdering, active: newActivePos });
     }
     case DELETE_COMBATANT: {
       const deletedId = payload;
@@ -91,11 +73,10 @@ const orderReducer = (state, { type, payload }) => {
         newOrdering,
         oldOrdering,
         oldActivePos,
-        resetActive: deletedId === prevActiveId,
+        resetActive: deletedId === prevActiveId
       });
 
-      // prettier-ignore
-      return newOrder(state)({
+      return withNewOrder({
         ids: newOrdering,
         active: newActivePos
       });
@@ -107,17 +88,12 @@ const orderReducer = (state, { type, payload }) => {
         ? 0
         : (oldActivePos + 1) % numCombatants;
       const noDifference = oldActivePos === newActivePos || numCombatants < 1;
-      return noDifference ? state : newOrder(state)({ active: newActivePos });
+      return noDifference ? state : withNewOrder({ active: newActivePos });
     }
     default: {
       return state;
     }
   }
 };
-
-orderReducer.dependencies = [
-  ...getCombatants.reducers,
-  ...getConfigSorted.reducers
-];
 
 export default orderReducer;

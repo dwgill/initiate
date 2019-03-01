@@ -5,9 +5,9 @@ const isConstantNumber = str => constantRE.test(str);
 const isDiceRoll = str => droll.validate(str);
 
 /**
- * @param {number} prevValue
- * @param {string} dynamicNum
- * @return {[number, boolean]} The result, and whether it was dynamic
+ * @param prevValue
+ * @param dynamicNum
+ * @return The result, and whether it was dynamic
  */
 function computeDynamicNumber(prevValue, dynamicNum) {
   prevValue = prevValue || 0;

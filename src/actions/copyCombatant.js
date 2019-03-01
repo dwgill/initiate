@@ -1,10 +1,15 @@
+import existy from "../logic/existy";
+import newUniqueId from "../logic/newUniqueId";
 import newCombatant from "./newCombatant";
 import updateCombatant from "./updateCombatant";
-import newUniqueId from "../logic/newUniqueId";
-import getCombatantById from "../selectors/getCombatantById";
 
 const copyCombatant = sourceCombatantId => (dispatch, getState) => {
-  const sourceCombatant = getCombatantById(getState())(sourceCombatantId);
+  const sourceCombatant = getState().combatants[sourceCombatantId];
+  if(!existy(sourceCombatant)) {
+    console.warn(`Tried to copy combatantId ${sourceCombatantId} without corresponding combatant.`);
+    return;
+  }
+  
   const newCombatantId = newUniqueId();
   dispatch(newCombatant(newCombatantId));
   dispatch(

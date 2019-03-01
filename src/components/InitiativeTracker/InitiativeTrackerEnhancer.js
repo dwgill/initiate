@@ -1,11 +1,11 @@
 import { connect } from "react-redux";
-import getCombatantIdsByInitiative from "../../selectors/getCombatantIdsByInitiative";
-import getNumCombatants from "../../selectors/getNumCombatants";
 import newCombatant from "../../actions/newCombatant";
 import progressInitiative from "../../actions/progressInitiative";
+import getCombatantsByInitiativeOrder from "../../selectors/getCombatantsByInitiativeOrder";
+import getNumCombatants from "../../selectors/getNumCombatants";
 
 const mapStateToProps = state => ({
-  combatants: getCombatantIdsByInitiative(state),
+  combatants: getCombatantsByInitiativeOrder(state),
   canProgress: getNumCombatants(state) > 1
 });
 

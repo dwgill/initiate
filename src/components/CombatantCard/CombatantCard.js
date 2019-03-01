@@ -65,7 +65,10 @@ class CombatantCard extends PureComponent {
 
   render() {
     const {
-      combatant: { name, initiative, armorClass, healthPoints },
+      name,
+      initiative,
+      armorClass,
+      healthPoints,
       onCopyCombatant,
       onDeleteCombatant,
       active
