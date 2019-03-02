@@ -53,8 +53,8 @@ const CombatantCard = ({
 }) => {
   const handleChangeName = useCombatantUpdater(onUpdateCombatant, "name");
   const handleChangeInit = useCombatantUpdater(onUpdateCombatant, "initiative");
-  const handleChangeHP = useCombatantUpdater(onUpdateCombatant, "armorClass");
-  const handleChangeAC = useCombatantUpdater(onUpdateCombatant, "healthPoints");
+  const handleChangeHP = useCombatantUpdater(onUpdateCombatant, "healthPoints");
+  const handleChangeAC = useCombatantUpdater(onUpdateCombatant, "armorClass");
 
   const [flashing, setFlashing] = useState(false);
 
