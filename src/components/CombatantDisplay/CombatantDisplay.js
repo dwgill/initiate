@@ -1,78 +1,80 @@
-import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
+import React, { useCallback, useEffect, useRef } from "react";
+import AutosizeInput from "react-input-autosize";
 import styles from "./CombatantDisplay.module.scss";
 import NumberField from "./NumberField";
-import StandardLayout from "./Layouts/StandardLayout";
-import AutosizeInput from "react-input-autosize";
 
-class CombatantDisplay extends PureComponent {
-  static propTypes = {
-    name: PropTypes.string,
-    onChangeName: PropTypes.func.isRequired,
-
-    initiative: PropTypes.number,
-    onChangeInitiative: PropTypes.func.isRequired,
-
-    armorClass: PropTypes.number,
-    onChangeArmorClass: PropTypes.func.isRequired,
-
-    healthPoints: PropTypes.number,
-    onChangeHealthPoints: PropTypes.func.isRequired
-  };
-
-  handleRenderName = ({ className }) => (
-    <AutosizeInput
-      className={className}
-      inputClassName={styles.name}
-      value={this.props.name}
-      onChange={this.handleChangeName}
-      placeholder="Unnamed"
-    />
+const CombatantDisplay = ({
+  name,
+  onChangeName,
+  initiative,
+  onChangeInitiative,
+  armorClass,
+  onChangeArmorClass,
+  healthPoints,
+  onChangeHealthPoints
+}) => {
+  const handleChangeName = useCallback(
+    event => {
+      onChangeName(event.target.value);
+    },
+    [onChangeName]
   );
 
-  handleRenderInitiative = ({ className }) => (
-    <NumberField
-      className={className}
-      label="Initiative:"
-      value={this.props.initiative}
-      onChange={this.props.onChangeInitiative}
-    />
-  );
+  const nameRef = useRef(null);
 
-  handleRenderHealth = ({ className }) => (
-    <NumberField
-      className={className}
-      label="Health:"
-      value={this.props.healthPoints}
-      onChange={this.props.onChangeHealthPoints}
-    />
-  );
+  useEffect(() => {
+    if (nameRef) {
+      nameRef.current.focus();
+    }
+  }, [nameRef.current]);
 
-  handleRenderArmorClass = ({ className }) => (
-    <NumberField
-      className={className}
-      label="Armor Class:"
-      value={this.props.armorClass}
-      onChange={this.props.onChangeArmorClass}
-    />
-  );
-
-  render() {
-    return (
-      <StandardLayout
-        Name={this.handleRenderName}
-        Initiative={this.handleRenderInitiative}
-        Health={this.handleRenderHealth}
-        ArmorClass={this.handleRenderArmorClass}
+  return (
+    <div className={styles.container}>
+      <AutosizeInput
+        className={styles.leftElement}
+        inputClassName={styles.name}
+        value={name}
+        onChange={handleChangeName}
+        placeholder="Unnamed"
+        ref={nameRef}
       />
-    );
-  }
+      <div className={styles.rightSide}>
+        <NumberField
+          className={styles.rightElement}
+          label="Initiative:"
+          value={initiative}
+          onChange={onChangeInitiative}
+        />
+        <NumberField
+          className={styles.rightElement}
+          label="Health:"
+          value={healthPoints}
+          onChange={onChangeHealthPoints}
+        />
+        <NumberField
+          className={styles.rightElement}
+          label="Armor Class:"
+          value={armorClass}
+          onChange={onChangeArmorClass}
+        />
+      </div>
+    </div>
+  );
+};
 
-  handleChangeName = event => {
-    const newName = event.target.value;
-    const { onChangeName } = this.props;
-    onChangeName(newName);
-  };
-}
+CombatantDisplay.propTypes = {
+  name: PropTypes.string,
+  onChangeName: PropTypes.func.isRequired,
+
+  initiative: PropTypes.number,
+  onChangeInitiative: PropTypes.func.isRequired,
+
+  armorClass: PropTypes.number,
+  onChangeArmorClass: PropTypes.func.isRequired,
+
+  healthPoints: PropTypes.number,
+  onChangeHealthPoints: PropTypes.func.isRequired
+};
 
 export default CombatantDisplay;

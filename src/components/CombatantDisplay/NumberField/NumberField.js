@@ -87,7 +87,7 @@ class NumberField extends PureComponent {
     this.setState({ value: !newValue ? "" : String(newValue) });
   };
 
-  handleKeyPress = event => {
+  handleKeyDown = event => {
     if (event.key === "Enter") {
       this.handleBlur(event);
     }
@@ -109,7 +109,7 @@ class NumberField extends PureComponent {
             onBlur={this.handleBlur}
             onChange={this.handleChange}
             onFocus={this.handleFocus}
-            onKeyPress={this.handleKeyPress}
+            onKeyDown={this.handleKeyDown}
             placeholder={placeholder}
             ref={this.inputRef}
             value={value}

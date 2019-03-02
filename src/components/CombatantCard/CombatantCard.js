@@ -1,12 +1,12 @@
-import React, { PureComponent, memo } from "react";
+import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
+import { ReactComponent as Times } from "@fortawesome/fontawesome-free/svgs/solid/times.svg";
+import cls from "classnames";
+import PropTypes from "prop-types";
+import React, { memo, PureComponent } from "react";
+import { CombatantId } from "../../reducers/propTypes.js";
+import CombatantDisplay from "../CombatantDisplay";
 import styles from "./CombatantCard.module.scss";
 import enhance from "./CombatantCardEnhancer";
-import PropTypes from "prop-types";
-import { Combatant, CombatantId } from "../../reducers/propTypes.js";
-import CombatantDisplay from "../CombatantDisplay";
-import { ReactComponent as Times } from "@fortawesome/fontawesome-free/svgs/solid/times.svg";
-import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
-import cls from "classnames";
 
 const DeleteButton = memo(({ onClick }) => (
   <button
@@ -35,7 +35,10 @@ const CopyButton = memo(({ onClick }) => (
 class CombatantCard extends PureComponent {
   static propTypes = {
     id: CombatantId().isRequired,
-    combatant: Combatant().isRequired,
+    name: PropTypes.string,
+    initiative: PropTypes.number,
+    armorClass: PropTypes.number,
+    healthPoints: PropTypes.number,
     onCopyCombatant: PropTypes.func.isRequired,
     onUpdateCombatant: PropTypes.func.isRequired,
     onDeleteCombatant: PropTypes.func.isRequired
