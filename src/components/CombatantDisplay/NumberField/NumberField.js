@@ -59,7 +59,7 @@ class NumberField extends PureComponent {
     this.setState({ hasFocus: false });
     const { onChange, value: propsValue } = this.props;
     const { value } = this.state;
-    if (String(propsValue) === value || !onChange) {
+    if (String(propsValue || '') === value || !onChange) {
       return;
     }
 

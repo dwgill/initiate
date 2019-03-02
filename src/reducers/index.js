@@ -13,4 +13,4 @@ const initialState = {
   combatants: {}
 };
 
-export default reduceReducers(orderReducer, combatantsReducer, initialState);
+export default reduceReducers(combatantsReducer, orderReducer, initialState);

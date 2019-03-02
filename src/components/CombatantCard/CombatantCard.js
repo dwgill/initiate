@@ -41,7 +41,9 @@ class CombatantCard extends PureComponent {
     healthPoints: PropTypes.number,
     onCopyCombatant: PropTypes.func.isRequired,
     onUpdateCombatant: PropTypes.func.isRequired,
-    onDeleteCombatant: PropTypes.func.isRequired
+    onDeleteCombatant: PropTypes.func.isRequired,
+    // TODO, flash a border around the card whenever its index changes
+    index: PropTypes.number.isRequired
   };
 
   doUpdateCombatant(property, value) {
