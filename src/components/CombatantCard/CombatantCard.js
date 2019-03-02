@@ -1,102 +1,92 @@
 import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
 import { ReactComponent as Times } from "@fortawesome/fontawesome-free/svgs/solid/times.svg";
 import cls from "classnames";
-import PropTypes from "prop-types";
-import React, { memo, PureComponent } from "react";
-import { CombatantId } from "../../reducers/propTypes.js";
+import React, { memo, useCallback, useEffect, useState } from "react";
 import CombatantDisplay from "../CombatantDisplay";
 import styles from "./CombatantCard.module.scss";
 import enhance from "./CombatantCardEnhancer";
 
-const DeleteButton = memo(({ onClick }) => (
-  <button
-    className={styles.deleteBtn}
-    onClick={event => {
-      onClick();
-      event.target.blur();
-    }}
-  >
-    <Times className={styles.icon} />
-  </button>
-));
+const useClickCallback = onClick => {
+  // prettier-ignore
+  const handleClick = useCallback(event => {
+    onClick();
+    event.target.blur();
+  }, [onClick]);
 
-const CopyButton = memo(({ onClick }) => (
-  <button
-    className={styles.copyBtn}
-    onClick={event => {
-      onClick();
-      event.target.blur();
-    }}
-  >
-    <Clone className={styles.icon} />
-  </button>
-));
+  return handleClick;
+};
 
-class CombatantCard extends PureComponent {
-  static propTypes = {
-    id: CombatantId().isRequired,
-    name: PropTypes.string,
-    initiative: PropTypes.number,
-    armorClass: PropTypes.number,
-    healthPoints: PropTypes.number,
-    onCopyCombatant: PropTypes.func.isRequired,
-    onUpdateCombatant: PropTypes.func.isRequired,
-    onDeleteCombatant: PropTypes.func.isRequired,
-    // TODO, flash a border around the card whenever its index changes
-    index: PropTypes.number.isRequired
-  };
+const DeleteButton = memo(({ onClick }) => {
+  const handleClick = useClickCallback(onClick);
+  return (
+    <button className={styles.deleteBtn} onClick={handleClick}>
+      <Times className={styles.icon} />
+    </button>
+  );
+});
 
-  doUpdateCombatant(property, value) {
-    const { onUpdateCombatant } = this.props;
-    if (!onUpdateCombatant) {
-      return;
-    }
+const CopyButton = memo(({ onClick }) => {
+  const handleClick = useClickCallback(onClick);
+  return (
+    <button className={styles.copyBtn} onClick={handleClick}>
+      <Clone className={styles.icon} />
+    </button>
+  );
+});
 
-    onUpdateCombatant({ [property]: value });
-  }
+const useCombatantUpdater = (updater, property) => {
+  // prettier-ignore
+  return useCallback(newValue => {
+    updater({ [property]: newValue });
+  }, [updater, property]);
+};
 
-  handleChangeName = newName => {
-    this.doUpdateCombatant("name", newName);
-  };
-  handleChangeInitiative = newInit => {
-    this.doUpdateCombatant("initiative", newInit);
-  };
-  handleChangeHealthPoints = newHP => {
-    this.doUpdateCombatant("healthPoints", newHP);
-  };
-  handleChangeArmorClass = newAC => {
-    this.doUpdateCombatant("armorClass", newAC);
-  };
+const CombatantCard = ({
+  name,
+  initiative,
+  armorClass,
+  healthPoints,
+  onCopyCombatant,
+  onUpdateCombatant,
+  onDeleteCombatant,
+  active
+}) => {
+  const handleChangeName = useCombatantUpdater(onUpdateCombatant, "name");
+  const handleChangeInit = useCombatantUpdater(onUpdateCombatant, "initiative");
+  const handleChangeHP = useCombatantUpdater(onUpdateCombatant, "armorClass");
+  const handleChangeAC = useCombatantUpdater(onUpdateCombatant, "healthPoints");
 
-  render() {
-    const {
-      name,
-      initiative,
-      armorClass,
-      healthPoints,
-      onCopyCombatant,
-      onDeleteCombatant,
-      active
-    } = this.props;
-    return (
-      <div className={cls(styles.card, { [styles.active]: active })}>
-        <div className={styles.cardInterior}>
-          <CombatantDisplay
-            name={name}
-            onChangeName={this.handleChangeName}
-            initiative={initiative}
-            onChangeInitiative={this.handleChangeInitiative}
-            healthPoints={healthPoints}
-            onChangeHealthPoints={this.handleChangeHealthPoints}
-            armorClass={armorClass}
-            onChangeArmorClass={this.handleChangeArmorClass}
-          />
-          <DeleteButton onClick={onDeleteCombatant} />
-          <CopyButton onClick={onCopyCombatant} />
-        </div>
+  const [flashing, setFlashing] = useState(false);
+
+  useEffect(() => {
+    setFlashing(true);
+    const timeoutID = setTimeout(() => setFlashing(false), 300);
+    return () => clearTimeout(timeoutID);
+  }, [initiative]);
+
+  return (
+    <div
+      className={cls(styles.card, {
+        [styles.active]: active && !flashing,
+        [styles.flashing]: flashing
+      })}
+    >
+      <div className={styles.cardInterior}>
+        <CombatantDisplay
+          name={name}
+          onChangeName={handleChangeName}
+          initiative={initiative}
+          onChangeInitiative={handleChangeInit}
+          healthPoints={healthPoints}
+          onChangeHealthPoints={handleChangeHP}
+          armorClass={armorClass}
+          onChangeArmorClass={handleChangeAC}
+        />
+        <DeleteButton onClick={onDeleteCombatant} />
+        <CopyButton onClick={onCopyCombatant} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 export default enhance(CombatantCard);

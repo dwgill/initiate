@@ -15,6 +15,10 @@ $bulma: "../../bulma.module.scss";
   composes: is-primary from $bulma;
 }
 
+.flashing {
+  composes: is-link from $bulma;
+}
+
 .iconBtn {
   position: absolute;
   border-width: 0;

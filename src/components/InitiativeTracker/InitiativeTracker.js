@@ -40,8 +40,8 @@ const InitiativeTracker = memo(({
         )}
         <ActionButton onClick={onNewCombatant} Icon={Plus} />
       </div>
-      {combatants.map((combatant, index) => (
-        <CombatantCard {...combatant} index={index} key={combatant.id} />
+      {combatants.map(combatant => (
+        <CombatantCard {...combatant} key={combatant.id} />
       ))}
     </div>
   );
