@@ -15,9 +15,7 @@ const CombatantDisplay = ({
   onChangeHealthPoints
 }) => {
   const handleChangeName = useCallback(
-    event => {
-      onChangeName(event.target.value);
-    },
+    event => onChangeName(event.target.value),
     [onChangeName]
   );
 
@@ -36,7 +34,7 @@ const CombatantDisplay = ({
         inputClassName={styles.name}
         value={name}
         onChange={handleChangeName}
-        placeholder="Unnamed"
+        placeholder="N/A"
         ref={nameRef}
       />
       <div className={styles.rightSide}>

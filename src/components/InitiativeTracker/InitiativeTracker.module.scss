@@ -43,3 +43,7 @@ $bulma: "../../bulma.module.scss";
     fill: $link;
   }
 }
+
+.progressing {
+  composes: progressing from '../CombatantCard/CombatantCard.module.scss';
+}

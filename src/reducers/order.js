@@ -1,5 +1,10 @@
 import isEqual from "lodash/fp/isEqual";
-import { DELETE_COMBATANT, NEW_COMBATANT, PROGRESS_INITIATIVE, UPDATE_COMBATANT } from "../actions/types";
+import {
+  DELETE_COMBATANT,
+  NEW_COMBATANT,
+  PROGRESS_INITIATIVE,
+  UPDATE_COMBATANT
+} from "../actions/types";
 import existy from "../logic/existy";
 import reassessActivePosition from "../logic/reassessActivePosition";
 import getConfigSorted from "../selectors/getConfigSorted";
@@ -87,8 +92,9 @@ const orderReducer = (state, { type, payload }) => {
       const newActivePos = !existy(oldActivePos)
         ? 0
         : (oldActivePos + 1) % numCombatants;
-      const noDifference = oldActivePos === newActivePos || numCombatants < 1;
-      return noDifference ? state : withNewOrder({ active: newActivePos });
+      const finalNewActivePos = isNaN(newActivePos) ? null : newActivePos;
+      const noDifference = oldActivePos === finalNewActivePos;
+      return noDifference ? state : withNewOrder({ active: finalNewActivePos });
     }
     default: {
       return state;

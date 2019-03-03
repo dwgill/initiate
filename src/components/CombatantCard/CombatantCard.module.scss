@@ -1,22 +1,41 @@
 $bulma: "../../bulma.module.scss";
 @import "../../bulma/bulma-util";
 
+.flashing {
+  composes: is-info from $bulma;
+}
 
 .card {
   composes: message from $bulma;
   position: relative;
+
+  .progressing &.active {
+    // background-color: blue;
+    margin-left: 0rem;
+  }
+
+  .progressing &:not(.active) {
+    margin-left: 6rem;
+  }
+
+  &.flashing {
+    
+  }
 }
 
 .cardInterior {
   composes: message-body from $bulma;
-}
+  border-left-width: 4px;
 
-.active {
-  composes: is-primary from $bulma;
-}
+  .progressing .active:not(.flashing) & {
+    border-color: $info;
+  }
 
-.flashing {
-  composes: is-link from $bulma;
+  .flashing & {
+    border-color: $info;
+    border-width: 2px;
+    border-left-width: 4px;
+  }
 }
 
 .iconBtn {

@@ -19,6 +19,10 @@ const reassessActivePosition = ({
     return null;
   }
 
+  if ([0, 1].includes(newOrdering.length)) {
+    return null;
+  }
+
   const oldActiveId = oldOrdering[oldActivePos];
   const newActivePos = findIndex(eq(oldActiveId))(newOrdering);
 

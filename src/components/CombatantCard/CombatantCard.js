@@ -1,4 +1,4 @@
-import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
+  import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
 import { ReactComponent as Times } from "@fortawesome/fontawesome-free/svgs/solid/times.svg";
 import cls from "classnames";
 import React, { memo, useCallback, useEffect, useState } from "react";
@@ -8,12 +8,10 @@ import enhance from "./CombatantCardEnhancer";
 
 const useClickCallback = onClick => {
   // prettier-ignore
-  const handleClick = useCallback(event => {
+  return useCallback(event => {
     onClick();
     event.target.blur();
   }, [onClick]);
-
-  return handleClick;
 };
 
 const DeleteButton = memo(({ onClick }) => {
@@ -60,14 +58,14 @@ const CombatantCard = ({
 
   useEffect(() => {
     setFlashing(true);
-    const timeoutID = setTimeout(() => setFlashing(false), 300);
+    const timeoutID = setTimeout(() => setFlashing(false), 500);
     return () => clearTimeout(timeoutID);
   }, [initiative]);
 
   return (
     <div
       className={cls(styles.card, {
-        [styles.active]: active && !flashing,
+        [styles.active]: active,
         [styles.flashing]: flashing
       })}
     >

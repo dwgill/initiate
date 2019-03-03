@@ -39,7 +39,7 @@ class NumberField extends PureComponent {
 
   flash() {
     this.setState({ isFlashing: true }, () => {
-      delay(300, () => this.setState({ isFlashing: false }));
+      delay(500, () => this.setState({ isFlashing: false }));
     })
   }
 
