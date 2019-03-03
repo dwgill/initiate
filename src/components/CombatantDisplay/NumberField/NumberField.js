@@ -4,7 +4,8 @@ import PropTypes from "prop-types";
 import computeDynamicNumber from "../../../logic/computeDynamicNumber";
 import AutosizeInput from "react-input-autosize";
 import cls from "classnames";
-import delay from 'lodash/fp/delay';
+import delay from "lodash/fp/delay";
+import { flashDurationMilliseconds } from "../../../logic/flashDuration";
 
 class NumberField extends PureComponent {
   static propTypes = {
@@ -39,8 +40,10 @@ class NumberField extends PureComponent {
 
   flash() {
     this.setState({ isFlashing: true }, () => {
-      delay(500, () => this.setState({ isFlashing: false }));
-    })
+      delay(flashDurationMilliseconds, () =>
+        this.setState({ isFlashing: false })
+      );
+    });
   }
 
   handleFocus = (event, shouldSelect = true) => {
@@ -59,7 +62,7 @@ class NumberField extends PureComponent {
     this.setState({ hasFocus: false });
     const { onChange, value: propsValue } = this.props;
     const { value } = this.state;
-    if (String(propsValue || '') === value || !onChange) {
+    if (String(propsValue || "") === value || !onChange) {
       return;
     }
 

@@ -18,6 +18,11 @@ const CombatantDisplay = ({
     event => onChangeName(event.target.value),
     [onChangeName]
   );
+  const handleBlurName = useCallback(() => {
+    if (name !== name.trim()) {
+      onChangeName(name.trim());
+    }
+  }, [onChangeName]);
 
   const nameRef = useRef(null);
 
@@ -35,6 +40,7 @@ const CombatantDisplay = ({
         value={name}
         onChange={handleChangeName}
         placeholder="N/A"
+        onBlur={handleBlurName}
         ref={nameRef}
       />
       <div className={styles.rightSide}>

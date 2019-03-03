@@ -1,10 +1,11 @@
-  import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
+import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
 import { ReactComponent as Times } from "@fortawesome/fontawesome-free/svgs/solid/times.svg";
 import cls from "classnames";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import CombatantDisplay from "../CombatantDisplay";
 import styles from "./CombatantCard.module.scss";
 import enhance from "./CombatantCardEnhancer";
+import { flashDurationMilliseconds } from "../../logic/flashDuration";
 
 const useClickCallback = onClick => {
   // prettier-ignore
@@ -58,7 +59,10 @@ const CombatantCard = ({
 
   useEffect(() => {
     setFlashing(true);
-    const timeoutID = setTimeout(() => setFlashing(false), 500);
+    const timeoutID = setTimeout(
+      () => setFlashing(false),
+      flashDurationMilliseconds
+    );
     return () => clearTimeout(timeoutID);
   }, [initiative]);
 

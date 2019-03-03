@@ -28,7 +28,7 @@ const PageCredits = memo(() => (
           Backward time icon
         </A>{" "}
         by <A link="https://delapouite.com/">Delapouite</A> under{" "}
-        <A link="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</A>
+        <A link="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</A>.
       </li>
     </ul>
   </footer>
