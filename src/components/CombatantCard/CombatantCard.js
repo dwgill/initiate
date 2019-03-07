@@ -6,6 +6,7 @@ import CombatantDisplay from "../CombatantDisplay";
 import styles from "./CombatantCard.module.scss";
 import enhance from "./CombatantCardEnhancer";
 import { flashDurationMilliseconds } from "../../logic/flashDuration";
+import { useCopyCombatantShortcut } from "../../logic/shortcuts";
 
 const useClickCallback = onClick => {
   // prettier-ignore
@@ -54,6 +55,7 @@ const CombatantCard = ({
   const handleChangeInit = useCombatantUpdater(onUpdateCombatant, "initiative");
   const handleChangeHP = useCombatantUpdater(onUpdateCombatant, "healthPoints");
   const handleChangeAC = useCombatantUpdater(onUpdateCombatant, "armorClass");
+  const handleKeyDown = useCopyCombatantShortcut(onCopyCombatant);
 
   const [flashing, setFlashing] = useState(false);
 
@@ -72,6 +74,7 @@ const CombatantCard = ({
         [styles.active]: active,
         [styles.flashing]: flashing
       })}
+      onKeyDown={handleKeyDown}
     >
       <div className={styles.cardInterior}>
         <CombatantDisplay

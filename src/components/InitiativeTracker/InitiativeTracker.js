@@ -1,10 +1,11 @@
 import { ReactComponent as Next } from "@fortawesome/fontawesome-free/svgs/solid/caret-square-right.svg";
 import { ReactComponent as Plus } from "@fortawesome/fontawesome-free/svgs/solid/plus-square.svg";
 import cls from "classnames";
-import React, { memo, useCallback } from "react";
+import React, { memo, useCallback, useEffect } from "react";
 import CombatantCard from "../CombatantCard";
 import styles from "./InitiativeTracker.module.scss";
 import enhance from "./InitiativeTrackerEnhancer";
+import { useNewCombatantShortcut } from "../../logic/shortcuts";
 
 const ActionButton = memo(({ onClick, Icon }) => {
   const handleClick = useCallback(
@@ -30,21 +31,18 @@ const InitiativeTracker = memo(
     onProgressInitiative,
     isProgressing
   }) => {
-    const handleKeyDown = useCallback(
-      event => {
-        if (event.shiftKey && event.key === "Enter") {
-          onNewCombatant();
-        }
-      },
-      [onNewCombatant]
-    );
+    const handleKeyDown = useNewCombatantShortcut(onNewCombatant);
+
+    useEffect(() => {
+      window.addEventListener('keydown', handleKeyDown);
+      return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [handleKeyDown]);
 
     return (
       <div
         className={cls(styles.initiativeList, {
           [styles.progressing]: isProgressing
         })}
-        onKeyDown={handleKeyDown}
       >
         <div className={styles.btnRow}>
           {canProgress && (
