@@ -4,13 +4,7 @@ export interface ReduxState {
     ids: string[],
   },
   combatants: {
-    [index: string]: {
-      id: string,
-      name?: string,
-      initiative?: number,
-      armorClass?: null,
-      healthPoints?: null
-    }
+    [index: string]: Combatant
   }
 }
 
@@ -18,14 +12,9 @@ export interface Combatant {
   id: string,
   name: string,
   initiative: number,
-  armorClass: null,
-  healthPoints: null
+  armorClass: number,
+  healthPoints: number,
+  notes: string,
 }
 
-export interface PartialCombatant {
-  id: string,
-  name? : string,
-  initiative?: number,
-  armorClass?: null,
-  healthPoints?: null
-}
+export type PartialCombatant = { id: Combatant['id'] } & Partial<Combatant>;

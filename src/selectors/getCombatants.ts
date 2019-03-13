@@ -1,7 +1,7 @@
 import createSelector from "selectorator";
 import { ReduxState, Combatant } from "../types";
 
-type Combatants = { [index: string]: Combatant };
+type Combatants = ReduxState['combatants'];
 
 const getCombatants = createSelector<ReduxState, Combatants>(['combatants']);
 
