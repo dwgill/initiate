@@ -12,11 +12,18 @@ const CombatantDisplay = ({
   armorClass,
   onChangeArmorClass,
   healthPoints,
-  onChangeHealthPoints
+  onChangeHealthPoints,
+  displayNotes,
+  notes,
+  onChangeNotes
 }) => {
   const handleChangeName = useCallback(
     event => onChangeName(event.target.value),
     [onChangeName]
+  );
+  const handleChangeNotes = useCallback(
+    event => onChangeNotes(event.target.value),
+    [onChangeNotes]
   );
   const handleBlurName = useCallback(() => {
     if (name !== name.trim()) {
@@ -24,45 +31,52 @@ const CombatantDisplay = ({
     }
   }, [onChangeName]);
 
-  const nameRef = useRef(null);
+  const nameRef = useRef();
 
-  useEffect(() => {
-    if (nameRef) {
-      nameRef.current.focus();
-    }
-  }, [nameRef.current]);
+  useEffect(() => nameRef.current.focus(), []);
 
   return (
     <div className={styles.container}>
-      <AutosizeInput
-        className={styles.leftElement}
-        inputClassName={styles.name}
-        value={name}
-        onChange={handleChangeName}
-        placeholder="N/A"
-        onBlur={handleBlurName}
-        ref={nameRef}
-      />
-      <div className={styles.rightSide}>
-        <NumberField
-          className={styles.rightElement}
-          label="Initiative:"
-          value={initiative}
-          onChange={onChangeInitiative}
+      <div className={styles.coreRow}>
+        <AutosizeInput
+          className={styles.leftElement}
+          inputClassName={styles.name}
+          value={name}
+          onChange={handleChangeName}
+          placeholder="N/A"
+          onBlur={handleBlurName}
+          ref={nameRef}
         />
-        <NumberField
-          className={styles.rightElement}
-          label="Health:"
-          value={healthPoints}
-          onChange={onChangeHealthPoints}
-        />
-        <NumberField
-          className={styles.rightElement}
-          label="Armor Class:"
-          value={armorClass}
-          onChange={onChangeArmorClass}
-        />
+        <div className={styles.rightSide}>
+          <NumberField
+            className={styles.rightElement}
+            label="Initiative:"
+            value={initiative}
+            onChange={onChangeInitiative}
+          />
+          <NumberField
+            className={styles.rightElement}
+            label="Health:"
+            value={healthPoints}
+            onChange={onChangeHealthPoints}
+          />
+          <NumberField
+            className={styles.rightElement}
+            label="Armor Class:"
+            value={armorClass}
+            onChange={onChangeArmorClass}
+          />
+        </div>
       </div>
+      {displayNotes && (
+        <div className={styles.notes}>
+          <textarea
+            className={styles.notesInput}
+            value={notes}
+            onChange={handleChangeNotes}
+          />
+        </div>
+      )}
     </div>
   );
 };

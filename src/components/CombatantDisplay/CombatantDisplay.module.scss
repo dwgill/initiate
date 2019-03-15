@@ -19,9 +19,26 @@ $bulma: "../../bulma.module.scss";
   justify-content: flex-end;
 }
 
-// copied from standard layout
-
 .container {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.notes {
+  margin-top: 1rem;
+  width: 100%;
+}
+
+.notesInput {
+  composes: textarea from $bulma;
+  width: 100%;
+  resize: vertical;
+  // height: min(calc(100%) 10rem);
+}
+
+.coreRow {
   // background-color: rgba(pink, .25 );
   display: flex;
   flex-flow: row wrap;
@@ -49,5 +66,5 @@ $bulma: "../../bulma.module.scss";
 .rightElement {
   // background-color: rgba(yellow, .25 );
   flex-grow: 1;
-  margin: .1rem;
+  margin: 0.1rem;
 }

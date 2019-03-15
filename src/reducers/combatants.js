@@ -1,7 +1,12 @@
 import isEqual from "lodash/fp/isEqual";
 import omit from "lodash/fp/omit";
 import pick from "lodash/fp/pick";
-import { DELETE_COMBATANT, NEW_COMBATANT, UPDATE_COMBATANT } from "../actions/types";
+import {
+  DELETE_COMBATANT,
+  NEW_COMBATANT,
+  UPDATE_COMBATANT,
+  PROGRESS_INITIATIVE
+} from "../actions/types";
 
 const combatantsReducer = (state, { type, payload }) => {
   switch (type) {
@@ -40,10 +45,16 @@ const combatantsReducer = (state, { type, payload }) => {
             name: "",
             initiative: null,
             armorClass: null,
-            healthPoints: null
+            healthPoints: null,
+            notes: ""
           }
         }
       };
+    }
+    case PROGRESS_INITIATIVE: {
+      // Update the notes intelligently to do some king of countdown for
+      // certain formats.
+      return state;
     }
     case DELETE_COMBATANT: {
       const combatantId = payload;

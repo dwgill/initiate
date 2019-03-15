@@ -25,7 +25,7 @@ const ActionButton = memo(({ onClick, Icon }) => {
 
 const InitiativeTracker = memo(
   ({
-    combatants,
+    initiativeOrder,
     onNewCombatant,
     canProgress,
     onProgressInitiative,
@@ -34,8 +34,8 @@ const InitiativeTracker = memo(
     const handleKeyDown = useNewCombatantShortcut(onNewCombatant);
 
     useEffect(() => {
-      window.addEventListener('keydown', handleKeyDown);
-      return () => window.removeEventListener('keydown', handleKeyDown);
+      window.addEventListener("keydown", handleKeyDown);
+      return () => window.removeEventListener("keydown", handleKeyDown);
     }, [handleKeyDown]);
 
     return (
@@ -50,8 +50,8 @@ const InitiativeTracker = memo(
           )}
           <ActionButton onClick={onNewCombatant} Icon={Plus} />
         </div>
-        {combatants.map(combatant => (
-          <CombatantCard {...combatant} key={combatant.id} />
+        {initiativeOrder.map(combatantId => (
+          <CombatantCard id={combatantId} key={combatantId} />
         ))}
       </div>
     );

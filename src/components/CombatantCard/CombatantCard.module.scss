@@ -31,10 +31,10 @@ $bulma: "../../bulma.module.scss";
   border-width: 0;
   border-color: transparent;
   background-color: transparent;
-  padding: .1rem;
+  padding: 0.1rem;
   &:active {
-    padding-right: .05rem;
-    padding-left: .15rem;
+    padding-right: 0.05rem;
+    padding-left: 0.15rem;
   }
 }
 
@@ -42,24 +42,40 @@ $bulma: "../../bulma.module.scss";
   composes: iconBtn;
   top: 0.2rem;
   right: 0.2rem;
+
+  &:hover .icon,
+  &:focus .icon {
+    fill: $danger;
+  }
 }
 
 .copyBtn {
   composes: iconBtn;
   top: 2rem;
   right: 0.2rem;
+
+  &:hover .icon,
+  &:focus .icon {
+    fill: $danger;
+  }
+}
+
+.commentBtn {
+  composes: iconBtn;
+  top: 3.9rem;
+  right: 0.2rem;
+
+  &:hover .icon,
+  &:focus .icon {
+    fill: $info;
+  }
 }
 
 .icon {
   height: 1rem;
   width: 1rem;
   fill: $grey-light;
-  
-  
-  .iconBtn:hover &, .iconBtn:focus & {
-    fill: $danger;
-  }
-  
+
   .iconBtn:active & {
     fill: $grey-dark;
   }

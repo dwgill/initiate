@@ -3,10 +3,26 @@ import copyCombatant from "../../actions/copyCombatant";
 import deleteCombatant from "../../actions/deleteCombatant";
 import updateCombatant from "../../actions/updateCombatant";
 import getActiveId from "../../selectors/getActiveId";
+import getCombatants from "../../selectors/getCombatants";
 
-const mapStateToProps = (state, ownProps) => {
+const mapStateToProps = (state, { id }) => {
+  const {
+    name = "",
+    initiative = null,
+    armorClass = null,
+    healthPoints = null,
+    notes = ""
+  } = getCombatants(state)[id] || {};
+
+  const active = getActiveId(state) === id;
+
   return {
-    active: getActiveId(state) === ownProps.id
+    active,
+    name,
+    initiative,
+    armorClass,
+    healthPoints,
+    notes
   };
 };
 

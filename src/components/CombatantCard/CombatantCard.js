@@ -1,5 +1,6 @@
 import { ReactComponent as Clone } from "@fortawesome/fontawesome-free/svgs/solid/clone.svg";
 import { ReactComponent as Times } from "@fortawesome/fontawesome-free/svgs/solid/times.svg";
+import { ReactComponent as Comment } from "@fortawesome/fontawesome-free/svgs/solid/comment-alt.svg";
 import cls from "classnames";
 import React, { memo, useCallback, useEffect, useState } from "react";
 import CombatantDisplay from "../CombatantDisplay";
@@ -34,6 +35,15 @@ const CopyButton = memo(({ onClick }) => {
   );
 });
 
+const NotesButton = memo(({ onClick }) => {
+  const handleClick = useClickCallback(onClick);
+  return (
+    <button className={styles.commentBtn} onClick={handleClick}>
+      <Comment className={styles.icon} />
+    </button>
+  );
+});
+
 const useCombatantUpdater = (updater, property) => {
   // prettier-ignore
   return useCallback(newValue => {
@@ -46,16 +56,20 @@ const CombatantCard = ({
   initiative,
   armorClass,
   healthPoints,
+  active,
+  notes,
   onCopyCombatant,
   onUpdateCombatant,
-  onDeleteCombatant,
-  active
+  onDeleteCombatant
 }) => {
   const handleChangeName = useCombatantUpdater(onUpdateCombatant, "name");
+  const handleChangeNotes = useCombatantUpdater(onUpdateCombatant, "notes");
   const handleChangeInit = useCombatantUpdater(onUpdateCombatant, "initiative");
   const handleChangeHP = useCombatantUpdater(onUpdateCombatant, "healthPoints");
   const handleChangeAC = useCombatantUpdater(onUpdateCombatant, "armorClass");
   const handleKeyDown = useCopyCombatantShortcut(onCopyCombatant);
+  const [displayNotes, setDisplayNotes] = useState(false);
+  const handleToggleNotes = useCallback(() => setDisplayNotes(state => !state));
 
   const [flashing, setFlashing] = useState(false);
 
@@ -65,7 +79,10 @@ const CombatantCard = ({
       () => setFlashing(false),
       flashDurationMilliseconds
     );
-    return () => clearTimeout(timeoutID);
+    return () => {
+      setFlashing(false);
+      clearTimeout(timeoutID);
+    };
   }, [initiative]);
 
   return (
@@ -86,9 +103,13 @@ const CombatantCard = ({
           onChangeHealthPoints={handleChangeHP}
           armorClass={armorClass}
           onChangeArmorClass={handleChangeAC}
+          displayNotes={displayNotes}
+          notes={notes}
+          onChangeNotes={handleChangeNotes}
         />
         <DeleteButton onClick={onDeleteCombatant} />
         <CopyButton onClick={onCopyCombatant} />
+        <NotesButton onClick={handleToggleNotes} />
       </div>
     </div>
   );
