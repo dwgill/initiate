@@ -24,7 +24,7 @@ export function determineNewCombatantName(sourceGuyName, allNames) {
   
   let nextNumToCheck, baseName;
   if (!sourceIsNumbered) {
-    nextNumToCheck = 1;
+    nextNumToCheck = 2;
     baseName = sourceGuyName.trim();
   } else {
     const { 0: endNumberStr, index: endNumberIndex } = endNumberMatch;

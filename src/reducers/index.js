@@ -1,8 +1,10 @@
-import reduceReducers from "reduce-reducers";
+import existy from "../logic/existy";
 // eslint-disable-next-line
 import * as Types from "../types";
-import combatantsReducer from "./combatants";
-import orderReducer from "./order";
+import * as deleteCombatant from './deleteCombatant';
+import * as newCombatant from './newCombatant';
+import * as progressInitiative from './progressInitiative';
+import * as updateCombatant from "./updateCombatant";
 
 /** @type {Types.ReduxState} */
 const initialState = {
@@ -13,4 +15,20 @@ const initialState = {
   combatants: {}
 };
 
-export default reduceReducers(combatantsReducer, orderReducer, initialState);
+const reducers = {
+  [updateCombatant.type]: updateCombatant.reducer,
+  [newCombatant.type]: newCombatant.reducer,
+  [deleteCombatant.type]: deleteCombatant.reducer,
+  [progressInitiative.type]: progressInitiative.reducer
+};
+
+function coreReducer(state = initialState, action) {
+  const reducer = reducers[action.type];
+  if (existy(reducer)) {
+    return reducer(state, action);
+  }
+
+  return state;
+}
+
+export default coreReducer;

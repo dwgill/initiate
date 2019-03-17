@@ -1,11 +1,14 @@
-import { useCallback, KeyboardEvent } from 'react';
+import { useCallback, KeyboardEvent } from "react";
 
 function makeShortcutHook(eventPredicate: (event: KeyboardEvent) => boolean) {
-  function useHook(callback: () => void) {
+  function useHook(callback: () => boolean) {
     function onKeyDown(event: KeyboardEvent) {
       if (eventPredicate(event)) {
         callback();
+        return true;
       }
+
+      return false;
     }
 
     return useCallback(onKeyDown, [callback]);
@@ -14,10 +17,15 @@ function makeShortcutHook(eventPredicate: (event: KeyboardEvent) => boolean) {
   return useHook;
 }
 
-export const useCopyCombatantShortcut = makeShortcutHook(event => {
-  return event.shiftKey && event.ctrlKey && event.key === "Enter";
-});
 
-export const useNewCombatantShortcut = makeShortcutHook(event => {
-  return event.shiftKey && !event.ctrlKey && event.key === "Enter";
-});
+export function copyCombatantPredicate(event: KeyboardEvent): boolean {
+  return event.shiftKey && event.ctrlKey && event.key === "Enter";
+}
+
+export function newCombatantPredicate(event: KeyboardEvent): boolean {
+  return !event.shiftKey && event.ctrlKey && event.key === "Enter";
+}
+
+export function progressInitiativePredicate(event: KeyboardEvent): boolean {
+  return !event.shiftKey && event.ctrlKey && event.key === " ";
+}

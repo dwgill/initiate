@@ -3,7 +3,7 @@ import copyCombatant, { determineNewCombatantName } from './copyCombatant';
 describe('determineNewCombatantName', () => {
   it('puts a 1 after names with no terminating numbers', () => {
     for (const name of ['foo', 'bar', 'foo 1a', 'boyo 1o']) {
-      expect(determineNewCombatantName(name, new Set())).toEqual(`${name} 1`);
+      expect(determineNewCombatantName(name, new Set())).toEqual(`${name} 2`);
     }
   });
 

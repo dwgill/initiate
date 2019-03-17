@@ -15,7 +15,6 @@ const reassessActivePosition = ({
   resetActive = false
 }) => {
   if (!existy(oldActivePos)) {
-    console.log("reassessActivePosition: was already inactive");
     return null;
   }
 

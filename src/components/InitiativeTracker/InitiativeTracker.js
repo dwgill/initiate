@@ -5,7 +5,7 @@ import React, { memo, useCallback, useEffect } from "react";
 import CombatantCard from "../CombatantCard";
 import styles from "./InitiativeTracker.module.scss";
 import enhance from "./InitiativeTrackerEnhancer";
-import { useNewCombatantShortcut } from "../../logic/shortcuts";
+import { newCombatantPredicate, progressInitiativePredicate } from "../../logic/shortcuts";
 
 const ActionButton = memo(({ onClick, Icon }) => {
   const handleClick = useCallback(
@@ -31,7 +31,18 @@ const InitiativeTracker = memo(
     onProgressInitiative,
     isProgressing
   }) => {
-    const handleKeyDown = useNewCombatantShortcut(onNewCombatant);
+    const handleKeyDown = useCallback((event) => {
+      if (newCombatantPredicate(event)) {
+        onNewCombatant();
+        return;
+      }
+
+      if (progressInitiativePredicate(event)) {
+        onProgressInitiative();
+        return;
+      }
+    }, [onNewCombatant, onProgressInitiative]);
+
 
     useEffect(() => {
       window.addEventListener("keydown", handleKeyDown);
