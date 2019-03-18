@@ -60,7 +60,7 @@ const updateTheInitiativeOrder = action => state => {
     order: {
       ...state.order,
       ids: newOrdering,
-      active: newActivePos,
+      active: newActivePos
     }
   };
 };

@@ -18,7 +18,7 @@ const createTheCombatant = action => state => {
       }
     }
   };
-}
+};
 
 const updateTheInitiativeOrdering = action => state => {
   const newCombatantId = action.payload;
@@ -36,7 +36,7 @@ const updateTheInitiativeOrdering = action => state => {
     order: {
       ...state.order,
       ids: newOrdering,
-      active: newActivePos,
+      active: newActivePos
     }
   };
 };

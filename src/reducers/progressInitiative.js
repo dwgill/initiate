@@ -2,7 +2,7 @@ import { PROGRESS_INITIATIVE } from "../actions/types";
 import existy from "../logic/existy";
 import flow from "lodash/fp/flow";
 import newTurnNotes from "../logic/newTurnNotes";
-import produce from 'immer';
+import produce from "immer";
 
 const updateTheInitiativeOrder = action => state => {
   const oldActivePos = state.order.active;
@@ -12,13 +12,14 @@ const updateTheInitiativeOrder = action => state => {
     : (oldActivePos + 1) % numCombatants;
   const finalNewActivePos = isNaN(newActivePos) ? null : newActivePos;
   const noDifference = oldActivePos === finalNewActivePos;
+  // prettier-ignore
   return noDifference ? state : {
     ...state,
     order: {
       ...state.order,
       active: finalNewActivePos
     }
-  }
+  };
 };
 
 const updateTheNewActiveCombatant = action => state => {
@@ -33,18 +34,18 @@ const updateTheNewActiveCombatant = action => state => {
 
   const newNotes = newTurnNotes(activeNotes);
   const notesChanged = activeNotes !== newNotes;
-  
+
   return produce(state, draft => {
-    if (notesChanged) { 
+    if (notesChanged) {
       draft.combatants[activeId].notes = newNotes;
     }
   });
-}
+};
 
 export function reducer(state, action) {
   return flow(
     updateTheInitiativeOrder(action),
-    updateTheNewActiveCombatant(action),
+    updateTheNewActiveCombatant(action)
   )(state);
 }
 
