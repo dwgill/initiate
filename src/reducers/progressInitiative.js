@@ -4,7 +4,7 @@ import flow from "lodash/fp/flow";
 import newTurnNotes from "../logic/newTurnNotes";
 import produce from 'immer';
 
-const theInitiativeOrder = action => state => {
+const updateTheInitiativeOrder = action => state => {
   const oldActivePos = state.order.active;
   const numCombatants = state.order.ids.length;
   const newActivePos = !existy(oldActivePos)
@@ -21,7 +21,7 @@ const theInitiativeOrder = action => state => {
   }
 };
 
-const theNewActiveCombatant = action => state => {
+const updateTheNewActiveCombatant = action => state => {
   if (!existy(state.order.active) || state.order.ids.length < 1) {
     return state;
   }
@@ -43,8 +43,8 @@ const theNewActiveCombatant = action => state => {
 
 export function reducer(state, action) {
   return flow(
-    theInitiativeOrder(action),
-    theNewActiveCombatant(action),
+    updateTheInitiativeOrder(action),
+    updateTheNewActiveCombatant(action),
   )(state);
 }
 

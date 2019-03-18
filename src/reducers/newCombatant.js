@@ -2,7 +2,7 @@ import { NEW_COMBATANT } from "../actions/types";
 import reassessActivePosition from "../logic/reassessActivePosition";
 import flow from "lodash/fp/flow";
 
-const theCombatantItself = action => state => {
+const createTheCombatant = action => state => {
   const newCombatantId = action.payload;
   return {
     ...state,
@@ -20,7 +20,7 @@ const theCombatantItself = action => state => {
   };
 }
 
-const theInitiativeOrdering = action => state => {
+const updateTheInitiativeOrdering = action => state => {
   const newCombatantId = action.payload;
   const oldOrdering = state.order.ids;
   const newOrdering = [newCombatantId, ...oldOrdering];
@@ -43,8 +43,8 @@ const theInitiativeOrdering = action => state => {
 
 export function reducer(state, action) {
   return flow(
-    theCombatantItself(action),
-    theInitiativeOrdering(action)
+    createTheCombatant(action),
+    updateTheInitiativeOrdering(action)
   )(state);
 }
 

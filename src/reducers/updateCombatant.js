@@ -6,7 +6,7 @@ import existy from "../logic/existy";
 import reassessActivePosition from "../logic/reassessActivePosition";
 import getInitiativeOrderSorted from "../selectors/getInitiativeOrderSorted";
 
-const theCombatantItself = action => state => {
+const updateTheCombatant = action => state => {
   const { payload } = action;
   const { id: combatantId } = payload;
   if (!combatantId) {
@@ -32,7 +32,7 @@ const theCombatantItself = action => state => {
   };
 };
 
-const theInitiativeOrder = action => state => {
+const updateTheInitiativeOrder = action => state => {
   const newProperties = action.payload;
   if (!existy(newProperties.initiative)) {
     return state;
@@ -72,8 +72,8 @@ export function reducer(state, action) {
   }
 
   return flow(
-    theCombatantItself(action),
-    theInitiativeOrder(action)
+    updateTheCombatant(action),
+    updateTheInitiativeOrder(action)
   )(state);
 }
 

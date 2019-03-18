@@ -3,13 +3,13 @@ import omit from "lodash/fp/omit";
 import flow from "lodash/fp/flow";
 import reassessActivePosition from "../logic/reassessActivePosition";
 
-const theCombatantItself = action => state => {
+const deleteTheCombatant = action => state => {
   const combatantId = action.payload;
   const noDifference = !state.combatants.hasOwnProperty(combatantId);
   return noDifference ? state : omit(`combatants.${combatantId}`)(state);
 };
 
-const theInitiativeOrder = action => state => {
+const adjustTheInitiativeOrder = action => state => {
   const deletedId = action.payload;
   const oldOrdering = state.order.ids;
   const oldActivePos = state.order.active;
@@ -39,8 +39,8 @@ const theInitiativeOrder = action => state => {
 
 export function reducer(state, action) {
   return flow(
-    theCombatantItself(action),
-    theInitiativeOrder(action)
+    deleteTheCombatant(action),
+    adjustTheInitiativeOrder(action)
   )(state);
 }
 
