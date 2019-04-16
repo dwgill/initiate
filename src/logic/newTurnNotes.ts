@@ -1,4 +1,3 @@
-
 const number_re = /\[-?[0-9]+\]/g;
 
 function newTurnNotes(notes: string): string {
@@ -11,7 +10,7 @@ function newTurnNotes(notes: string): string {
     const number = Number(matchStr.slice(1, -1));
     const mewNum = number - 1;
     const newStr = `[${mewNum}]`;
-  
+
     notes = notes.replace(matchStr, newStr);
   }
 

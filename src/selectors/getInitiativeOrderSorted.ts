@@ -41,7 +41,7 @@ const initiativeValuesHaveNotChanged = (prevCombatants: Combatants, nextCombatan
   return true;
 };
 
-const getInitiativeOrderSorted = createSelector<ReduxState, string[]>(
+const getInitiativeOrderingSorted = createSelector<ReduxState, string[]>(
   ["combatants"],
   flow(
     sortBy(calcCombatantInitiative),
@@ -53,4 +53,4 @@ const getInitiativeOrderSorted = createSelector<ReduxState, string[]>(
   }
 );
 
-export default getInitiativeOrderSorted;
+export default getInitiativeOrderingSorted;
