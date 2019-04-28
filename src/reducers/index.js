@@ -7,13 +7,13 @@ import * as progressInitiative from './progressInitiative';
 import * as updateCombatant from "./updateCombatant";
 
 /** @type {Types.ReduxState} */
-const initialState = {
+export const initialState = Object.freeze({
   order: {
     active: null,
     ids: []
   },
   combatants: {}
-};
+});
 
 const reducers = {
   [updateCombatant.type]: updateCombatant.reducer,

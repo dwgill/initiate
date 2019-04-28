@@ -5,10 +5,16 @@ import getActiveId from "../../selectors/raw/getActiveId";
 import existy from "../../logic/existy";
 import newTurnNotes from "../../logic/newTurnNotes";
 import set from 'lodash/fp/set';
+import size from 'lodash/fp/size';
 
 export const removeCombatantFromState = combatantId => state => {
-  const noDifference = !state.combatants.hasOwnProperty(combatantId);
-  return noDifference ? state : omit(`combatants.${combatantId}`)(state);
+  const oldCombatants = state.combatants;
+  const newCombatants = omit(combatantId)(oldCombatants);
+  const noDifference = size(oldCombatants) === size(newCombatants);
+  return noDifference ? state : {
+    ...state,
+    combatants: newCombatants
+  };
 };
 
 export const updateCombatantWithNewProperties = ({

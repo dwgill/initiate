@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
-import React, { useCallback, useEffect, useRef } from "react";
+import React, { useCallback } from "react";
 import AutosizeInput from "react-input-autosize";
+import useResetKey from "../../logic/useResetKey";
 import styles from "./CombatantDisplay.module.scss";
 import NumberField from "./NumberField";
 
@@ -21,19 +22,19 @@ const CombatantDisplay = ({
     event => onChangeName(event.target.value),
     [onChangeName]
   );
+  
   const handleChangeNotes = useCallback(
     event => onChangeNotes(event.target.value),
     [onChangeNotes]
   );
+
   const handleBlurName = useCallback(() => {
     if (name !== name.trim()) {
       onChangeName(name.trim());
     }
-  }, [onChangeName]);
+  }, [onChangeName, name]);
 
-  const nameRef = useRef();
-
-  useEffect(() => nameRef.current.focus(), []);
+  const nameKey = useResetKey([0, 1]);
 
   return (
     <div className={styles.container}>
@@ -45,7 +46,8 @@ const CombatantDisplay = ({
           onChange={handleChangeName}
           placeholder="N/A"
           onBlur={handleBlurName}
-          ref={nameRef}
+          key={nameKey}
+          autoFocus
         />
         <div className={styles.rightSide}>
           <NumberField
@@ -74,6 +76,7 @@ const CombatantDisplay = ({
             className={styles.notesInput}
             value={notes}
             onChange={handleChangeNotes}
+            rows={1}
           />
         </div>
       )}

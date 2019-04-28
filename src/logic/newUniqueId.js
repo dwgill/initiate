@@ -1,3 +1,5 @@
-import uniqueId from "lodash/fp/uniqueId";
+function newUniqueId() {
+  return `combatant_${new Date().toISOString()}`;
+}
 
-export default () => uniqueId("combatant_");
+export default newUniqueId;

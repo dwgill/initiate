@@ -8,6 +8,7 @@ import styles from "./CombatantCard.module.scss";
 import enhance from "./CombatantCardEnhancer";
 import { flashDurationMilliseconds } from "../../logic/flashDuration";
 import { copyCombatantPredicate } from "../../logic/shortcuts";
+import existy from "../../logic/existy";
 
 const useClickCallback = onClick => {
   // prettier-ignore
@@ -88,6 +89,12 @@ const CombatantCard = ({
       clearTimeout(timeoutID);
     };
   }, [initiative]);
+
+  useEffect(() => {
+    if (existy(notes) && notes.length > 0) {
+      setDisplayNotes(true);
+    }
+  }, []);
 
   return (
     <div
