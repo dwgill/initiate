@@ -6,6 +6,7 @@ import AutosizeInput from "react-input-autosize";
 import cls from "classnames";
 import delay from "lodash/fp/delay";
 import { flashDurationMilliseconds } from "../../../logic/flashDuration";
+import existy from "../../../logic/existy";
 
 class NumberField extends PureComponent {
   static propTypes = {
@@ -66,8 +67,13 @@ class NumberField extends PureComponent {
       return;
     }
 
-    if ([null, undefined, ""].includes(value)) {
+    if (!existy(value)) {
       onChange(null);
+      return;
+    }
+
+    if (value === '') {
+      onChange('');
       return;
     }
 
